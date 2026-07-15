@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="256" viewBox="0 0 720 256">
-  <rect width="720" height="256" fill="#ddd" rx="10"/>
-  <text x="360" y="100" text-anchor="middle" fill="#666" font-size="32" font-family="sans-serif">Profile Image</text>
-  <text x="360" y="150" text-anchor="middle" fill="#999" font-size="20" font-family="sans-serif">replace with your own</text>
-</svg>

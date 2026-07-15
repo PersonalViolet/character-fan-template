@@ -1,44 +1,49 @@
 {
-  "title": "Ei, ei, mun! - Dania",
+  "title": "前辈！达妮娅！",
   "favicon": "/favicon.ico",
   "backgroundColor": "#E77471",
   "characterName": "Dania",
-  "headerTitle": "Welcome to Dania",
-  "headerSubtitle": "The website for Dania, the cutest character out there.",
-  "buttonText": "Squish the mun~!",
-  "counterLabel": "The mun~ has been squished",
-  "counterUnit": "times",
+  "headerTitle": "前辈！达妮娅！",
+  "headerSubtitle": "不在意这么多乱七八槽的东西，生活会轻松很多啦~",
+  "buttonText": "娅没咯~!",
+  "counterLabel": "娅娅被摸了",
+  "counterUnit": "次",
   "video": {
-    "title": "Video Gallery",
-    "subtitle": "(Click on the thumbnail to view the video.)",
+    "title": "好娅娅视频~♥",
+    "subtitle": "点击封面来观看娅娅~",
     "items": [
-      { "id": "BV1GJ411x7h7", "platform": "bilibili", "thumbnail": "" },
-      { "id": "dQw4w9WgXcQ", "platform": "youtube", "thumbnail": "" }
+      { "id": "BV1QMTc63EAQ", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV1xRG86cEbY", "platform": "bilibili", "thumbnail":""},
+      { "id": "BV1zkLs6yEB3", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV18tosB8EHN", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV1CcLS6SEgJ", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV1StLb66E9f", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV1Hw7t64E8z", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV1HqNP6wEnU", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV1Juo4BnEWs", "platform": "bilibili", "thumbnail": "" }
     ]
   },
   "img": {
     "title": "Photo Gallery",
     "subtitle": "(Click on the image to view the source.)",
     "items": [
-      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=1" },
-      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=2" },
-      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=3" },
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/727f2b6747f78166bb174906b1a1de053546381809617159.png@1052w_!web-dynamic.avif" },
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/8ddea93f08a544f0aef957c839f5c8093493090606188642.jpg@1052w_!web-dynamic.avif" },
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/b30adfafa84b45e9c88242be5a7324e83493090606188642.jpg@1052w_!web-dynamic.avif" },
       { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=4" },
       { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=5" },
       { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=6" }
     ]
   },
-  "chibiImages": ["chibi1.svg", "chibi2.svg"],
-  "audioFiles": ["mun1.mp3", "mun2.mp3", "mun3.mp3"],
+  "chibiImages": ["dania.png", "dania2.png", "dania3.png"],
+  "audioFiles": ["audio1.mp3", "audio2.mp3", "audio3.mp3", "audio4.mp3", "audio5.mp3", "audio6.mp3"],
   "footer": {
-    "profileImage": "/img/profile.svg",
-    "headerText": "If you have any suggestions, contact me here:",
+    "profileImage": "/img/profile.avif",
+    "headerText": "如果你有任何问题或建议，欢迎随时联系我！",
     "contacts": [
-      { "icon": "mdi:twitter", "label": "@example", "url": "https://twitter.com" },
       { "icon": "mdi:github", "label": "GitHub", "url": "https://github.com/PersonalViolet" }
     ],
     "repoText": "Check out the GitHub repository:",
-    "repoUrl": "https://github.com/example/repo",
-    "customContent": "<p style=\"margin-top:8px;\">📧 Email: <a href=\"mailto:hello@example.com\">hello@example.com</a></p><p>Powered by <a href=\"https://vuejs.org/\" target=\"_blank\">Vue 3</a></p>"
+    "repoUrl": "https://github.com/PersonalViolet/character-fan-template"
   }
 }

@@ -1,0 +1,319 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5em;
+  color: white;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+#content {
+  margin: 2vh auto;
+  width: 80vw;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+hr {
+  border-bottom: 6px dashed white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.subtitle-separator {
+  margin-bottom: 10px;
+}
+
+.preload {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+}
+
+/* Counter Section */
+.counter-container {
+  text-align: center;
+  font-weight: bold;
+  margin: 64px 0;
+  position: relative;
+  z-index: 9999;
+}
+
+.counter-container > p {
+  text-shadow: 0 0 10px currentColor;
+}
+
+.counter-number {
+  color: #574f84;
+  font-size: 2em;
+}
+
+.counter-button {
+  background-color: #574f84;
+  border: none;
+  border-radius: 16px;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  font-size: 1em;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.counter-button:hover {
+  background-color: #2d2463;
+}
+
+/* Video Section */
+.video-subtitle,
+.gallery-subtitle {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.video-item-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 64px;
+}
+
+.video-item {
+  width: calc(80vw / 3 - 10px);
+  height: calc((80vw / 3 - 10px) / 16 * 9);
+  margin: 10px 5px 0 5px;
+  position: relative;
+}
+
+.video-item > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.video-item > iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  border: none;
+}
+
+/* Image Gallery */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 64px;
+  padding: 0 5px;
+}
+
+.grid-item {
+  display: block;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  vertical-align: middle;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+/* Footer */
+.footer {
+  background-color: white;
+  color: black;
+  padding: 16px 10vw;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-profile {
+  min-width: 256px;
+  max-width: 720px;
+  height: auto;
+  border-radius: 2% 3.5%;
+}
+
+.footer-text {
+  flex: 1;
+}
+
+.footer-header-text {
+  margin-bottom: 16px;
+}
+
+.footer-icon {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 2em;
+}
+
+.footer-icon-text {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-repo-text {
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+/* Loading & Error */
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 2em;
+  color: white;
+}
+
+.error-container {
+  color: #ff6b6b;
+}
+
+/* Flying Chibi Animation */
+.flying-chibi {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  width: 256px;
+  height: 256px;
+  will-change: right;
+}
+
+/* Responsive */
+@media screen and (max-width: 2240px) {
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 1512px) {
+  body {
+    font-size: 1.25em;
+  }
+  .subtitle-separator {
+    margin-top: 3px;
+    margin-bottom: 11px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .video-item {
+    width: calc(40vw - 10px);
+    height: calc((40vw - 10px) / 16 * 9);
+  }
+  .footer {
+    flex-wrap: wrap;
+  }
+  .footer-text {
+    text-align: center;
+  }
+  .footer-header-text {
+    margin-bottom: 8px;
+  }
+  .footer-repo-text {
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 1265px) {
+  body {
+    font-size: 1em;
+  }
+  .subtitle-separator {
+    margin-top: 6px;
+    margin-bottom: 12px;
+  }
+}
+
+@media screen and (max-width: 854px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .video-item {
+    width: calc(80vw - 10px);
+    height: calc((80vw - 10px) / 16 * 9);
+  }
+}
+
+@media screen and (max-width: 510px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  h2 {
+    font-size: 1.25em;
+  }
+  .subtitle-separator {
+    margin-top: 8px;
+    margin-bottom: 13px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  h1 {
+    font-size: 2em;
+  }
+  .subtitle-separator {
+    margin-top: 10px;
+  }
+}

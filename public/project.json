@@ -1,0 +1,43 @@
+{
+  "title": "Ei, ei, mun! - Dania",
+  "favicon": "/favicon.ico",
+  "backgroundColor": "#E77471",
+  "characterName": "Dania",
+  "headerTitle": "Welcome to Dania",
+  "headerSubtitle": "The website for Dania, the cutest character out there.",
+  "buttonText": "Squish the mun~!",
+  "counterLabel": "The mun~ has been squished",
+  "counterUnit": "times",
+  "video": {
+    "title": "Video Gallery",
+    "subtitle": "(Click on the thumbnail to view the video.)",
+    "items": [
+      { "id": "BV1GJ411x7h7", "platform": "bilibili", "thumbnail": "" },
+      { "id": "dQw4w9WgXcQ", "platform": "youtube", "thumbnail": "" }
+    ]
+  },
+  "img": {
+    "title": "Photo Gallery",
+    "subtitle": "(Click on the image to view the source.)",
+    "items": [
+      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=1" },
+      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=2" },
+      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=3" },
+      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=4" },
+      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=5" },
+      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=6" }
+    ]
+  },
+  "chibiImages": ["chibi1.svg", "chibi2.svg", "3.png"],
+  "audioFiles": ["mun1.mp3", "mun2.mp3", "mun3.mp3"],
+  "footer": {
+    "profileImage": "/img/profile.svg",
+    "headerText": "If you have any suggestions, contact me here:",
+    "contacts": [
+      { "icon": "mdi:twitter", "label": "@example", "url": "https://twitter.com" },
+      { "icon": "mdi:github", "label": "GitHub", "url": "https://github.com" }
+    ],
+    "repoText": "Check out the GitHub repository:",
+    "repoUrl": "https://github.com/example/repo"
+  }
+}

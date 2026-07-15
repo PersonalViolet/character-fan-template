@@ -24,6 +24,7 @@ defineProps<{
           :src="item.img"
           :alt="`Gallery image ${index + 1}`"
           loading="lazy"
+          referrerpolicy="no-referrer"
           @error="($event.target as HTMLImageElement).style.display = 'none'"
         />
       </a>

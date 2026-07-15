@@ -1,6 +1,6 @@
 {
   "title": "前辈！达妮娅！",
-  "favicon": "/favicon.ico",
+  "favicon": "/favicon.png",
   "backgroundColor": "#E77471",
   "characterName": "Dania",
   "headerTitle": "前辈！达妮娅！",
@@ -24,15 +24,17 @@
     ]
   },
   "img": {
-    "title": "Photo Gallery",
-    "subtitle": "(Click on the image to view the source.)",
+    "title": "娅娅美照~♥",
+    "subtitle": "戳图可以查看来源哦~",
     "items": [
       { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/727f2b6747f78166bb174906b1a1de053546381809617159.png@1052w_!web-dynamic.avif" },
       { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/8ddea93f08a544f0aef957c839f5c8093493090606188642.jpg@1052w_!web-dynamic.avif" },
       { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/b30adfafa84b45e9c88242be5a7324e83493090606188642.jpg@1052w_!web-dynamic.avif" },
-      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=4" },
-      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=5" },
-      { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=6" }
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/93533f6e2cf2d696403768b779100a593493090606188642.jpg@1052w_!web-dynamic.avif" },
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/e94ed6b43d2f031cb8a05cc5d10c26d83493090606188642.jpg@1052w_!web-dynamic.avif" },
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/8e1d9f92312ed44778d7ddf05104e23f3493090606188642.jpg@1052w_!web-dynamic.avif" },
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/c0efc8485cd83a9c7726f0bcd3f608323493090606188642.jpg@1052w_!web-dynamic.avif" },
+      { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/45f1286cc912746b8c53a76c428780e53493090606188642.jpg@1052w_!web-dynamic.avif" }
     ]
   },
   "chibiImages": ["dania.png", "dania2.png", "dania3.png"],
@@ -43,6 +45,7 @@
     "contacts": [
       { "icon": "mdi:github", "label": "GitHub", "url": "https://github.com/PersonalViolet" }
     ],
+    "customContent": "<a href='https://beian.miit.gov.cn/' target='_blank' rel='noopener noreferrer'>粤ICP备2026080692号</a>",
     "repoText": "Check out the GitHub repository:",
     "repoUrl": "https://github.com/PersonalViolet/character-fan-template"
   }

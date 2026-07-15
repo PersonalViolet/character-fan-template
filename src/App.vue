@@ -38,6 +38,7 @@ onMounted(() => {
     <VideoGallery :video-section="config.video" />
     <ImageGallery :image-section="config.img" />
     <PageFooter :footer="config.footer" />
+    
   </div>
 </template>
 

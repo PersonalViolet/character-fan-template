@@ -12,7 +12,7 @@
     "title": "Video Gallery",
     "subtitle": "(Click on the thumbnail to view the video.)",
     "items": [
-      { "id": "BV1GJ411x7h7", "platform": "bilibili", "thumbnail": "https://i1.hdslb.com/bfs/archive/5242750857121e05146d5d5b13a47a2a6dd36e98.jpg" },
+      { "id": "BV1GJ411x7h7", "platform": "bilibili", "thumbnail": "" },
       { "id": "dQw4w9WgXcQ", "platform": "youtube", "thumbnail": "" }
     ]
   },
@@ -28,16 +28,17 @@
       { "link": "https://example.com", "img": "https://picsum.photos/400/400?random=6" }
     ]
   },
-  "chibiImages": ["chibi1.svg", "chibi2.svg", "3.png"],
+  "chibiImages": ["chibi1.svg", "chibi2.svg"],
   "audioFiles": ["mun1.mp3", "mun2.mp3", "mun3.mp3"],
   "footer": {
     "profileImage": "/img/profile.svg",
     "headerText": "If you have any suggestions, contact me here:",
     "contacts": [
       { "icon": "mdi:twitter", "label": "@example", "url": "https://twitter.com" },
-      { "icon": "mdi:github", "label": "GitHub", "url": "https://github.com" }
+      { "icon": "mdi:github", "label": "GitHub", "url": "https://github.com/PersonalViolet" }
     ],
     "repoText": "Check out the GitHub repository:",
-    "repoUrl": "https://github.com/example/repo"
+    "repoUrl": "https://github.com/example/repo",
+    "customContent": "<p style=\"margin-top:8px;\">📧 Email: <a href=\"mailto:hello@example.com\">hello@example.com</a></p><p>Powered by <a href=\"https://vuejs.org/\" target=\"_blank\">Vue 3</a></p>"
   }
 }

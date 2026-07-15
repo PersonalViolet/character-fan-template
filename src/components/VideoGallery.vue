@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { VideoSection, VideoItem } from '@/types'
 import { useConfig } from '@/composables/useConfig'
 
@@ -9,25 +9,92 @@ const props = defineProps<{
 
 const { getVideoEmbedUrl } = useConfig()
 
-// Track which video is currently playing
 const activeVideoId = ref<string | null>(null)
+const bilibiliCovers = ref<Record<string, string>>({})
+
+/**
+ * Call Bilibili API via JSONP to bypass CORS (works on pure static hosting).
+ * Requires `jsonp=jsonp` param alongside `callback`.
+ */
+function bilibiliJsonp<T>(bvid: string): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const callbackName = `__bili_cb_${bvid.replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}`
+    const script = document.createElement('script')
+    const timeout = setTimeout(() => {
+      cleanup()
+      reject(new Error('Bilibili JSONP timeout'))
+    }, 8000)
+
+    function cleanup(): void {
+      clearTimeout(timeout)
+      delete (window as unknown as Record<string, unknown>)[callbackName]
+      if (script.parentNode) script.remove()
+    }
+
+    ;(window as unknown as Record<string, unknown>)[callbackName] = (data: T) => {
+      cleanup()
+      resolve(data)
+    }
+
+    script.src = `https://api.bilibili.com/x/web-interface/view?bvid=${bvid}&jsonp=jsonp&callback=${callbackName}`
+    script.onerror = () => {
+      cleanup()
+      reject(new Error('Bilibili JSONP script load failed'))
+    }
+    document.head.appendChild(script)
+  })
+}
+
+interface BilibiliApiData {
+  code: number
+  message?: string
+  data?: { pic: string; title: string }
+}
+
+onMounted(() => {
+  fetchBilibiliCovers()
+})
+
+async function fetchBilibiliCovers(): Promise<void> {
+  const bilibiliItems = props.videoSection.items.filter(
+    (item) => item.platform === 'bilibili' && !item.thumbnail
+  )
+  if (bilibiliItems.length === 0) return
+
+  const results = await Promise.allSettled(
+    bilibiliItems.map(async (item) => {
+      const data = await bilibiliJsonp<BilibiliApiData>(item.id)
+      if (data.code !== 0 || !data.data?.pic) {
+        throw new Error(data.message || 'No cover')
+      }
+      // http → https
+      const pic = data.data.pic.replace(/^http:\/\//, 'https://')
+      return { bvid: item.id, cover: pic }
+    })
+  )
+
+  for (const result of results) {
+    if (result.status === 'fulfilled') {
+      bilibiliCovers.value[result.value.bvid] = result.value.cover
+    }
+  }
+}
 
 function playVideo(itemId: string): void {
   activeVideoId.value = itemId
 }
 
-/** Build thumbnail URL purely from config — no API calls. */
 function thumbnailUrl(item: VideoItem): string {
-  // User explicitly set a thumbnail
   if (item.thumbnail) return item.thumbnail
-
-  // YouTube: thumbnail URL is predictable (no API needed)
   if (item.platform === 'youtube') {
     return `https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`
   }
+  return bilibiliCovers.value[item.id] || ''
+}
 
-  // bilibili without user-provided thumbnail → no URL, render placeholder
-  return ''
+/** Whether we have a usable thumbnail URL. */
+function hasThumbnail(item: VideoItem): boolean {
+  return !!thumbnailUrl(item)
 }
 </script>
 
@@ -42,17 +109,18 @@ function thumbnailUrl(item: VideoItem): string {
         :key="item.id"
         class="video-item"
       >
-        <!-- Thumbnail image: shown when not playing AND we have a cover URL -->
+        <!-- Thumbnail -->
         <img
-          v-if="activeVideoId !== item.id && thumbnailUrl(item)"
+          v-if="activeVideoId !== item.id && hasThumbnail(item)"
           :src="thumbnailUrl(item)"
           :alt="`Video ${item.id}`"
           loading="lazy"
           class="video-cover"
+          referrerpolicy="no-referrer"
           @click="playVideo(item.id)"
         />
 
-        <!-- Placeholder: bilibili without thumbnail, or cover image failed to load -->
+        <!-- Fallback placeholder -->
         <div
           v-else-if="activeVideoId !== item.id"
           class="video-thumbnail"

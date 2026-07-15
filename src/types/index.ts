@@ -33,6 +33,8 @@ export interface FooterConfig {
   contacts: ContactItem[]
   repoText: string
   repoUrl: string
+  /** 可选的自定义 HTML 内容，会渲染在联系方式下方 */
+  customContent?: string
 }
 
 export interface ProjectConfig {

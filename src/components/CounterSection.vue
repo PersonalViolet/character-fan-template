@@ -49,15 +49,25 @@ function playRandomAudio(): void {
 }
 
 // Flying chibi animation
-interface FlyingChibi {
-  id: number
-  element: HTMLImageElement
-  pos: number
-  scale: number
-  intervalId: number
-}
 
-let chibiIdCounter = 0
+// Preload images on mount so they're cached when animation triggers
+const preloadedImages = ref<Set<string>>(new Set())
+
+function preloadImage(src: string): Promise<void> {
+  return new Promise((resolve) => {
+    if (preloadedImages.value.has(src)) {
+      resolve()
+      return
+    }
+    const img = new Image()
+    img.onload = () => {
+      preloadedImages.value.add(src)
+      resolve()
+    }
+    img.onerror = () => resolve() // Don't block on error
+    img.src = src
+  })
+}
 
 function animateChibi(): void {
   const images = props.config.chibiImages
@@ -67,50 +77,51 @@ function animateChibi(): void {
   const imgSrc = `/img/${images[randomIndex]}`
   const scale: number = Math.random() < 0.5 ? -1 : 1
 
-  const element = document.createElement('img')
-  element.src = imgSrc
-  element.style.position = 'fixed'
-  element.style.transform = `scaleX(${scale})`
-  element.style.zIndex = '9999'
-  element.style.pointerEvents = 'none'
-  element.style.width = '256px'
-  element.style.height = 'auto'
-
-  // Random Y position, clamped so image stays within viewport
+  // Start Y position
   const startY = Math.floor(Math.random() * Math.max(1, window.innerHeight - 256))
-  element.style.top = `${startY}px`
 
-  // pos represents the CSS `right` value directly
-  // scale=1: start just off right edge (right: -256), move left as pos increases
-  // scale=-1: start just off left edge (right: w+256), move right as pos decreases
+  // Initial pos (CSS `right` value)
   let pos: number
   if (scale === 1) {
-    pos = -256
+    pos = -256 // Start just off right edge
   } else {
-    pos = window.innerWidth + 256
+    pos = window.innerWidth + 256 // Start just off left edge
   }
 
-  document.body.appendChild(element)
-
-  let intervalId: number
-  intervalId = window.setInterval(() => {
-    pos += scale * 20
+  // Preload the image first, then animate to avoid flicker
+  preloadImage(imgSrc).then(() => {
+    const element = document.createElement('img')
+    element.src = imgSrc
+    element.style.position = 'fixed'
+    element.style.transform = `scaleX(${scale})`
+    element.style.zIndex = '9999'
+    element.style.pointerEvents = 'none'
+    element.style.width = '256px'
+    element.style.height = 'auto'
+    element.style.top = `${startY}px`
     element.style.right = `${pos}px`
 
-    // Remove when fully off the opposite side
-    if (pos < -256 || pos > window.innerWidth + 256) {
-      clearInterval(intervalId)
-      element.remove()
-    }
-  }, 10)
+    document.body.appendChild(element)
 
-  // Safety cleanup after 10 seconds
-  setTimeout(() => {
-    clearInterval(intervalId)
-    if (element.parentNode) {
-      element.remove()
-    }
-  }, 10000)
+    let intervalId: number
+    intervalId = window.setInterval(() => {
+      pos += scale * 20
+      element.style.right = `${pos}px`
+
+      if (pos < -256 || pos > window.innerWidth + 256) {
+        clearInterval(intervalId)
+        element.remove()
+      }
+    }, 10)
+
+    // Safety cleanup after 10 seconds
+    setTimeout(() => {
+      clearInterval(intervalId)
+      if (element.parentNode) {
+        element.remove()
+      }
+    }, 10000)
+  })
 }
 
 function handleClick(): void {

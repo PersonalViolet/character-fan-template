@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import type { VideoSection, VideoItem } from '@/types'
 import { useConfig } from '@/composables/useConfig'
 
@@ -12,56 +12,22 @@ const { getVideoEmbedUrl } = useConfig()
 // Track which video is currently playing
 const activeVideoId = ref<string | null>(null)
 
-// Cache bilibili cover URLs: bvid -> cover image URL
-const bilibiliCovers = ref<Record<string, string>>({})
-
-onMounted(() => {
-  fetchBilibiliCovers()
-})
-
-async function fetchBilibiliCovers(): Promise<void> {
-  const bilibiliItems = props.videoSection.items.filter(
-    (item) => item.platform === 'bilibili' && !item.thumbnail
-  )
-  if (bilibiliItems.length === 0) return
-
-  // Fetch covers in parallel
-  const results = await Promise.allSettled(
-    bilibiliItems.map(async (item) => {
-      const resp = await fetch(
-        `https://api.bilibili.com/x/web-interface/view?bvid=${item.id}`
-      )
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
-      const data = await resp.json()
-      if (data.code !== 0) throw new Error(data.message || 'API error')
-      return { bvid: item.id, cover: data.data.pic as string }
-    })
-  )
-
-  for (const result of results) {
-    if (result.status === 'fulfilled') {
-      bilibiliCovers.value[result.value.bvid] = result.value.cover
-    }
-  }
-}
-
 function playVideo(itemId: string): void {
   activeVideoId.value = itemId
 }
 
-function getThumbnail(item: VideoItem): string {
+/** Build thumbnail URL purely from config — no API calls. */
+function thumbnailUrl(item: VideoItem): string {
+  // User explicitly set a thumbnail
   if (item.thumbnail) return item.thumbnail
+
+  // YouTube: thumbnail URL is predictable (no API needed)
   if (item.platform === 'youtube') {
     return `https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`
   }
-  // bilibili - use cached cover or empty (triggers fallback)
-  return bilibiliCovers.value[item.id] || ''
-}
 
-function hasThumbnail(item: VideoItem): boolean {
-  if (item.thumbnail) return true
-  if (item.platform === 'youtube') return true
-  return !!bilibiliCovers.value[item.id]
+  // bilibili without user-provided thumbnail → no URL, render placeholder
+  return ''
 }
 </script>
 
@@ -76,28 +42,29 @@ function hasThumbnail(item: VideoItem): boolean {
         :key="item.id"
         class="video-item"
       >
-        <!-- Thumbnail: shown when video is NOT playing and we have a cover -->
+        <!-- Thumbnail image: shown when not playing AND we have a cover URL -->
         <img
-          v-if="activeVideoId !== item.id && hasThumbnail(item)"
-          :src="getThumbnail(item)"
+          v-if="activeVideoId !== item.id && thumbnailUrl(item)"
+          :src="thumbnailUrl(item)"
           :alt="`Video ${item.id}`"
           loading="lazy"
           class="video-cover"
           @click="playVideo(item.id)"
-          @error="($event.target as HTMLImageElement).style.display = 'none'"
         />
 
-        <!-- Fallback placeholder: bilibili without cover loaded yet, or cover failed to load -->
+        <!-- Placeholder: bilibili without thumbnail, or cover image failed to load -->
         <div
           v-else-if="activeVideoId !== item.id"
-          class="video-thumbnail video-thumbnail-bilibili"
+          class="video-thumbnail"
+          :class="item.platform === 'bilibili' ? 'bilibili-placeholder' : 'youtube-placeholder'"
           @click="playVideo(item.id)"
         >
           <div class="play-overlay">
             <svg viewBox="0 0 24 24" width="64" height="64" fill="white">
-              <path d="M8 5v14l11-7z"/>
+              <path d="M8 5v14l11-7z" />
             </svg>
-            <span>Click to play</span>
+            <span v-if="item.platform === 'bilibili'">Bilibili · {{ item.id }}</span>
+            <span v-else>Click to play</span>
           </div>
         </div>
 
@@ -161,13 +128,22 @@ function hasThumbnail(item: VideoItem): boolean {
   height: 100%;
   border-radius: 16px;
   cursor: pointer;
-}
-
-.video-thumbnail-bilibili {
-  background: linear-gradient(135deg, #fb7299, #ff6b9d);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: filter 0.2s ease;
+}
+
+.video-thumbnail:hover {
+  filter: brightness(1.1);
+}
+
+.bilibili-placeholder {
+  background: linear-gradient(135deg, #fb7299, #ff6b9d);
+}
+
+.youtube-placeholder {
+  background: linear-gradient(135deg, #ff0000, #cc0000);
 }
 
 .play-overlay {
@@ -176,7 +152,7 @@ function hasThumbnail(item: VideoItem): boolean {
   align-items: center;
   gap: 8px;
   color: white;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

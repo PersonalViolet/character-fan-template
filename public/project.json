@@ -12,7 +12,7 @@
     "title": "Video Gallery",
     "subtitle": "(Click on the thumbnail to view the video.)",
     "items": [
-      { "id": "BV1GJ411x7h7", "platform": "bilibili", "thumbnail": "" },
+      { "id": "BV1GJ411x7h7", "platform": "bilibili", "thumbnail": "https://i1.hdslb.com/bfs/archive/5242750857121e05146d5d5b13a47a2a6dd36e98.jpg" },
       { "id": "dQw4w9WgXcQ", "platform": "youtube", "thumbnail": "" }
     ]
   },

@@ -124,17 +124,25 @@ hr {
   border: none;
 }
 
-/* Image Gallery */
+/* Image Gallery — masonry columns, images keep original aspect ratio */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
+  column-count: 6;
+  column-gap: 10px;
   margin-bottom: 64px;
   padding: 0 5px;
 }
 
 .grid-item {
   display: block;
+  break-inside: avoid;
+  margin-bottom: 10px;
+  perspective: 800px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grid-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .grid-item img {
@@ -142,8 +150,17 @@ hr {
   height: auto;
   border-radius: 16px;
   vertical-align: middle;
-  aspect-ratio: 1;
-  object-fit: cover;
+  /* 翻转加载动画初始状态 */
+  transform: rotateY(90deg);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s ease;
+}
+
+/* 图片加载完成后触发翻转 */
+.grid-item--loaded img {
+  transform: rotateY(0deg);
+  opacity: 1;
 }
 
 /* Footer */
@@ -227,13 +244,13 @@ hr {
 /* Responsive */
 @media screen and (max-width: 2240px) {
   .grid {
-    grid-template-columns: repeat(5, 1fr);
+    column-count: 5;
   }
 }
 
 @media screen and (max-width: 1920px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
+    column-count: 4;
   }
 }
 
@@ -249,7 +266,7 @@ hr {
 
 @media screen and (max-width: 1280px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    column-count: 3;
   }
   .video-item {
     width: calc(40vw - 10px);
@@ -282,7 +299,7 @@ hr {
 
 @media screen and (max-width: 854px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    column-count: 2;
   }
   .video-item {
     width: calc(80vw - 10px);
@@ -305,7 +322,7 @@ hr {
 
 @media screen and (max-width: 500px) {
   .grid {
-    grid-template-columns: 1fr;
+    column-count: 1;
   }
 }
 

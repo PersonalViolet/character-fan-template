@@ -37,7 +37,7 @@
       { "link": "https://t.bilibili.com/1204825510071238681?spm_id_from=333.1387.0.0", "img": "https://i0.hdslb.com/bfs/new_dyn/45f1286cc912746b8c53a76c428780e53493090606188642.jpg@1052w_!web-dynamic.avif" }
     ]
   },
-  "chibiImages": ["dania.png", "dania2.png", "dania3.png"],
+  "chibiImages": ["denia.png", "denia2.png", "denia3.png"],
   "audioFiles": ["audio1.mp3", "audio2.mp3", "audio3.mp3", "audio4.mp3", "audio5.mp3", "audio6.mp3"],
   "footer": {
     "profileImage": "/img/profile.avif",

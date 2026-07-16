@@ -1,4 +1,4 @@
-# Dania — 可自定义人物主题的 Vue 3 前端
+# character-fan-template— 可自定义人物主题的 Vue 3 前端
 
 基于 Vue 3 + TypeScript + Vite 构建的角色主题展示页面。**开发者只需修改一个配置文件 + 替换静态资源，即可切换为不同的人物主题网站。**
 
